@@ -1,0 +1,514 @@
+{
+  "date": "2026-11-05",
+  "account": "WeAFEE",
+  "form": "StWjtg",
+  "counts": {
+    "Pass": 24,
+    "Partial": 3,
+    "Fail": 1,
+    "Blocked": 5
+  },
+  "cases": [
+    {
+      "id": "B01",
+      "section": "Builder",
+      "area": "Add the block",
+      "title": "The block appears in the picker and can be added",
+      "steps": "Open a form in the builder. Blocks tab. Find Scratch card and drag it onto a step.",
+      "expected": "It is listed, drops in, and renders a covered card in the canvas.",
+      "status": "Pass",
+      "observed": "Scratch card was available in Elements. Dragging it onto the first step created a covered card in the desktop and mobile canvas.",
+      "evidence": [
+        "B01-before.png",
+        "B01-after.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B02",
+      "section": "Builder",
+      "area": "Add the block",
+      "title": "It can be placed on any step, including a success step",
+      "steps": "Add a card to step 1, then to a later step, then to the success view.",
+      "expected": "Allowed where the ruleset allows it; blocked cleanly elsewhere, never a broken state.",
+      "status": "Pass",
+      "observed": "Added cards to the first step, a new Blank Step, and Success. All three rendered. The temporary Success card was later removed through the builder.",
+      "evidence": [
+        "B01-after.png",
+        "B02-later-step.png",
+        "B02-success-step.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B03",
+      "section": "Builder",
+      "area": "Offer content",
+      "title": "The revealed offer takes rich text",
+      "steps": "Select the card. In Offer, type a headline, apply bold, add a link.",
+      "expected": "Formatting is kept, and the canvas preview shows the offer when the cover is hidden.",
+      "status": "Pass",
+      "observed": "Entered \u201cQA OFFER: Save 15% \u2014 View terms\u201d, applied bold, and linked it to the test storefront\u2019s #qa-offer anchor. Formatting and link survived publication.",
+      "evidence": [
+        "B03-rich-offer.png",
+        "O11-after.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B04",
+      "section": "Builder",
+      "area": "Offer content",
+      "title": "Show the offer while editing",
+      "steps": "Toggle the 'show the offer while editing' control on and off.",
+      "expected": "On, the cover is hidden so the offer can be edited. Off, the cover returns.",
+      "status": "Pass",
+      "observed": "The editing toggle exposed the offer and restored the cover when switched off. It did not discard offer content.",
+      "evidence": [
+        "B04-offer-visible.png",
+        "B04-cover-restored.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B05",
+      "section": "Builder",
+      "area": "Cover",
+      "title": "Prompt text can be set",
+      "steps": "Type into the prompt field. Clear it. Type a long sentence.",
+      "expected": "The canvas updates as you type. Cleared is allowed. Long text shrinks to fit.",
+      "status": "Pass",
+      "observed": "Typed and cleared the prompt. On the refreshed builder, \u201cSCRATCH TO REVEAL YOUR SPECIAL OFFER\u201d shrank to fit a 320px card. Empty text left the cover valid. Earlier stale-session clipping was superseded by this retest.",
+      "evidence": [
+        "B05-empty-retest.png",
+        "B05-B08-retest.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B06",
+      "section": "Builder",
+      "area": "Cover",
+      "title": "Cover colour can be set",
+      "steps": "Open the cover colour picker. Pick a preset, then a custom hex.",
+      "expected": "The card recolours, and the foil texture tints to the chosen colour.",
+      "status": "Pass",
+      "observed": "Selected a preset and committed custom hex #154E87. The refreshed builder and published card show blue-tinted foil.",
+      "evidence": [
+        "B06-preset-color.png",
+        "B07-styles-retest.png",
+        "O12-font.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B07",
+      "section": "Builder",
+      "area": "Cover",
+      "title": "Prompt text styles can be set",
+      "steps": "Set font family, size, weight, colour. Toggle italic.",
+      "expected": "All five apply to the prompt drawn on the cover, italic included.",
+      "status": "Pass",
+      "observed": "Changed the prompt to the company font IBM Plex Mono, 24px, normal then bold weight, yellow #FFF176, and italic. The cover visibly applied all five settings. These controls appeared after refreshing the builder; the earlier missing-control observation was superseded.",
+      "evidence": [
+        "B07-styles-retest.png",
+        "O12-font.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B08",
+      "section": "Builder",
+      "area": "Sizing",
+      "title": "Full width versus a fixed pixel width",
+      "steps": "Switch the card between spanning the column and a fixed width. Set a pixel value.",
+      "expected": "The width field appears only for fixed, and the card resizes in the canvas.",
+      "status": "Pass",
+      "observed": "Fixed width exposed a pixel field; 320px narrowed the card. Returning to Full width removed that field and expanded the card. Verified on the refreshed builder.",
+      "evidence": [
+        "B05-B08-retest.png",
+        "B07-styles-retest.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B09",
+      "section": "Builder",
+      "area": "Sizing",
+      "title": "Height and corner radius",
+      "steps": "Set a height. Set a corner radius.",
+      "expected": "Both apply. Tabbing between the dimension fields keeps focus and the typed value.",
+      "status": "Pass",
+      "observed": "Set height to 160px and corner radius to 28px; both applied and persisted. Tabbing from the fixed-width field to Height kept the entered width and moved focus correctly.",
+      "evidence": [
+        "B09-dimensions.png",
+        "B05-B08-retest.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B10",
+      "section": "Builder",
+      "area": "Behaviour",
+      "title": "Reveal threshold can be set",
+      "steps": "Set the threshold low, then high.",
+      "expected": "It stores, and is reflected on the published form.",
+      "status": "Pass",
+      "observed": "Published 20% and 80% thresholds separately. The 20% card remained covered at 19.94% erased and began fading by 24.32%; the 80% card stayed covered at 79.94% and began fading by 84.32%. Sampling was between horizontal strokes. Final setting: 50%.",
+      "evidence": [
+        "B10-low-threshold.png",
+        "O02-after.png",
+        "B10-high-before.png",
+        "B10-high-after.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B11",
+      "section": "Builder",
+      "area": "Behaviour",
+      "title": "An action can be attached",
+      "steps": "Open the action control and set each action type available.",
+      "expected": "The action saves and shows in the panel the same way it does for a button.",
+      "status": "Pass",
+      "observed": "Cycled all available action types: Close form, Submit form, Go to URL, Do nothing, and Subscribe via text messaging. Relevant controls appeared and selections saved. Actual backend success is assessed separately under O07/O09/O18. SMS was configuration-only; no SMS was sent.",
+      "evidence": [
+        "O07-action-config.png",
+        "O08-action-config.png",
+        "O09-action-config.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B12",
+      "section": "Builder",
+      "area": "Block handling",
+      "title": "Reorder, duplicate and delete",
+      "steps": "Drag the card to another position. Duplicate it. Delete it.",
+      "expected": "All three behave like any other block. No orphaned card or action left behind.",
+      "status": "Partial",
+      "observed": "Reordered the temporary Success card and deleted it without leaving an orphan. No Duplicate control was available in the inspected block menu, so duplication was not verified.",
+      "evidence": [
+        "B02-success-step.png",
+        "B12-reordered.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B13",
+      "section": "Builder",
+      "area": "Persistence",
+      "title": "Settings survive save and reopen",
+      "steps": "Set every field above, save, leave the builder, reopen the form.",
+      "expected": "Every setting comes back exactly as set.",
+      "status": "Pass",
+      "observed": "Reopened the builder after saving. Prompt, rich offer/link, company font, 24px bold italic yellow text, blue cover, full width, 160px height, 28px radius, threshold and action were retained. Later low-threshold capture shows the retained style settings.",
+      "evidence": [
+        "B07-styles-retest.png",
+        "B10-low-threshold.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B14",
+      "section": "Builder",
+      "area": "Persistence",
+      "title": "Publish",
+      "steps": "Publish the form.",
+      "expected": "Publish succeeds with no validation error, and the live form carries the card.",
+      "status": "Pass",
+      "observed": "Published successfully and confirmed the Live badge plus the actual card on the storefront. Nonblocking form alerts were present; publication completed.",
+      "evidence": [
+        "B14-final-published.png",
+        "O12-font.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "B15",
+      "section": "Builder",
+      "area": "Persistence",
+      "title": "Edit an already published card",
+      "steps": "Change the prompt and colour on a published form, then republish.",
+      "expected": "The change reaches the live form; nothing else about the card resets.",
+      "status": "Pass",
+      "observed": "Republished the changed prompt and custom blue cover. Live prompt and RGB (21,78,135) were verified; 160px height, 28px radius, threshold and offer/link remained intact. Further style/threshold edits were separate test scenarios.",
+      "evidence": [
+        "B15-edited.png",
+        "B15-live-updated.png"
+      ],
+      "browser": "Chrome builder"
+    },
+    {
+      "id": "O01",
+      "section": "Onsite",
+      "area": "Render",
+      "title": "The card renders on the live form",
+      "steps": "Open the published form on a real storefront page.",
+      "expected": "The covered card appears at the right size, with the foil and the prompt.",
+      "status": "Pass",
+      "observed": "The latest published card rendered with blue foil and the configured prompt. Desktop canvas measured 428 \u00d7 160 CSS pixels; radius and font matched the builder.",
+      "evidence": [
+        "O12-font.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O02",
+      "section": "Onsite",
+      "area": "Scratch",
+      "title": "Scratching reveals at roughly the threshold",
+      "steps": "Drag across the cover until it reveals.",
+      "expected": "Reveals near the configured threshold, not far before or after it.",
+      "status": "Pass",
+      "observed": "Real mouse strokes revealed near the configured threshold. Verified at 20%, 50%, and 80%; sampled reveal points were approximately 24%, 54%, and 84%, respectively. The cover stayed opaque immediately below each threshold.",
+      "evidence": [
+        "O02-before.png",
+        "O02-after.png",
+        "B10-high-before.png",
+        "B10-high-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O03",
+      "section": "Onsite",
+      "area": "Scratch",
+      "title": "A tap does not reveal",
+      "steps": "Click once on the cover without dragging.",
+      "expected": "Nothing is revealed. Under 6px of travel counts as a tap, not a scratch.",
+      "status": "Fail",
+      "observed": "A single stationary mouse click in the center of the cover revealed the entire offer. Before: 0% erased. After 700ms: cover removed. Reproduced in fresh sessions, including after refreshed assets. This conflicts with the expected no-reveal behavior for <6px travel.",
+      "evidence": [
+        "O03-before.png",
+        "O03-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O04",
+      "section": "Onsite",
+      "area": "Scratch",
+      "title": "Scratching erases properly",
+      "steps": "Scratch in short strokes and watch what is removed.",
+      "expected": "Each stroke clears the cover fully along its path, not faintly.",
+      "status": "Pass",
+      "observed": "A 55px short stroke cleared approximately 4.96% of the canvas to fully transparent pixels. Only a thin antialiased edge remained partially transparent.",
+      "evidence": [
+        "O04-before.png",
+        "O04-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O05",
+      "section": "Onsite",
+      "area": "Scratch",
+      "title": "Resizing mid-scratch does not restore the cover",
+      "steps": "Scratch about half, then resize the browser window.",
+      "expected": "The scratched area stays scratched. The cover must not come back.",
+      "status": "Pass",
+      "observed": "Scratched a partial region, then narrowed the viewport from 1440px to 390px. Visible card size changed from 428 \u00d7 160 to about 203.6 \u00d7 76.1px. Erased fraction stayed exactly 12.4927%; no restored cover. This sampled a partial scratch rather than exactly half.",
+      "evidence": [
+        "O05-before.png",
+        "O05-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O06",
+      "section": "Onsite",
+      "area": "Reveal",
+      "title": "The offer renders correctly once revealed",
+      "steps": "Reveal the card.",
+      "expected": "The cover cross-fades out and the offer shows with its formatting and links.",
+      "status": "Pass",
+      "observed": "Normal-motion reveal used opacity 0.32s ease-out, including an observed intermediate opacity, then removed the cover. The bold offer text and link remained visible.",
+      "evidence": [
+        "O02-before.png",
+        "O02-after.png",
+        "O11-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O07",
+      "section": "Onsite",
+      "area": "Action",
+      "title": "A dwell-safe action fires after the offer is readable",
+      "steps": "Set submit to list and close, publish, reveal.",
+      "expected": "The offer is visible for about 1.6s, then the action runs and the list submit lands.",
+      "status": "Blocked",
+      "observed": "Submit-to-Preview-List-and-close was published and exercised with a synthetic example.com identity. Offer remained visible at 500ms; subscription POST began at 1,627ms. Subscription and analytics requests failed with net::ERR_FAILED/CORS, so successful list submission cannot be claimed.",
+      "evidence": [
+        "O07-action-config.png",
+        "O07-before.png",
+        "O07-offer-dwell.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O08",
+      "section": "Onsite",
+      "area": "Action",
+      "title": "A navigating action still navigates",
+      "steps": "Set redirect to URL, publish, reveal.",
+      "expected": "The browser navigates. It must not silently do nothing.",
+      "status": "Pass",
+      "observed": "Published Go to URL and revealed the card. The browser navigated to the configured storefront URL with ?scratchqa=redirect.",
+      "evidence": [
+        "O08-action-config.png",
+        "O08-before.png",
+        "O08-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O09",
+      "section": "Onsite",
+      "area": "Action",
+      "title": "A multi-step transition works",
+      "steps": "Set transition to the next step, publish, reveal.",
+      "expected": "The form advances to the next step after the dwell.",
+      "status": "Blocked",
+      "observed": "Published Submit form \u2192 Preview List \u2192 Show next step. Reveal did not produce a verifiable next step within the observation window. The subscription request was blocked by CORS (missing Access-Control-Allow-Origin), so this is an end-to-end blocker rather than a proven scratch transition defect.",
+      "evidence": [
+        "O09-action-config.png",
+        "O09-before.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O10",
+      "section": "Onsite",
+      "area": "Keyboard",
+      "title": "The card can be revealed without scratching",
+      "steps": "Tab to the card and press Enter, then repeat with Space.",
+      "expected": "A focusable control reveals the offer. Focus ring is visible against the cover.",
+      "status": "Pass",
+      "observed": "Tab traversal reached the reveal control. Enter and Space each revealed the offer in independent checks. A focus outline was visible against the cover; no formal contrast-ratio audit was performed.",
+      "evidence": [
+        "O10-Enter-before.png",
+        "O10-Enter-after.png",
+        "O10-Space-before.png",
+        "O10-Space-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O11",
+      "section": "Onsite",
+      "area": "Keyboard",
+      "title": "The offer becomes reachable after the reveal",
+      "steps": "Reveal, then keep tabbing.",
+      "expected": "Links and buttons inside the offer are reachable only after the reveal.",
+      "status": "Pass",
+      "observed": "The offer link had tabindex=-1 while covered. After reveal that restriction was removed and the link received focus. Link destination and rich formatting were preserved.",
+      "evidence": [
+        "O11-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O12",
+      "section": "Onsite",
+      "area": "Prompt",
+      "title": "A custom prompt font renders on the cover",
+      "steps": "Set a company font for the prompt that nothing else on the form uses. Publish. Open the form.",
+      "expected": "The cover shows that font, at the right size, not a fallback.",
+      "status": "Pass",
+      "observed": "Published IBM Plex Mono Bold 700 for the prompt only. The browser loaded the 700 font face; canvas drawing font was italic bold 24px \u201cIBM Plex Mono\u201d, Helvetica, Arial, sans-serif. Live screenshot visibly matches the selected font.",
+      "evidence": [
+        "B07-styles-retest.png",
+        "O12-font.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O13",
+      "section": "Onsite",
+      "area": "Mobile",
+      "title": "Touch scratching works",
+      "steps": "Open the form on a phone and scratch with a finger.",
+      "expected": "It scratches and reveals. The page does not scroll while scratching.",
+      "status": "Partial",
+      "observed": "Chrome mobile emulation accepted synthetic touch strokes and revealed the offer while scrollY stayed 0. A physical phone and real finger input were not available, so the full phone acceptance criterion remains unverified.",
+      "evidence": [
+        "O13-before.png",
+        "O13-after.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O14",
+      "section": "Onsite",
+      "area": "Mobile",
+      "title": "Rotation and narrow viewports",
+      "steps": "Rotate the device. Try a narrow viewport with a full-width card.",
+      "expected": "The card stays usable and correctly sized.",
+      "status": "Partial",
+      "observed": "Emulated 390\u00d7844 portrait, 844\u00d7390 landscape, and 320\u00d7640 narrow viewports. The full-width card resized and remained visible. This verifies responsive viewport behavior, not physical-device rotation.",
+      "evidence": [
+        "O14-portrait.png",
+        "O14-landscape.png",
+        "O14-narrow.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O15",
+      "section": "Onsite",
+      "area": "Browsers",
+      "title": "Safari",
+      "steps": "Run O01, O02, O06 and O07 in Safari, desktop and iOS.",
+      "expected": "Same behaviour as Chrome. Canvas rendering is the risk here.",
+      "status": "Blocked",
+      "observed": "Desktop Safari and real iOS Safari were not exercised by this Chrome-based kit run. No Safari pass is inferred from Chrome emulation. Requires a Safari/iOS rerun of O01, O02, O06 and O07.",
+      "evidence": [],
+      "browser": "Safari / iOS unavailable"
+    },
+    {
+      "id": "O16",
+      "section": "Onsite",
+      "area": "Browsers",
+      "title": "Firefox",
+      "steps": "Run O01, O02, O06 and O07 in Firefox.",
+      "expected": "Same behaviour as Chrome.",
+      "status": "Blocked",
+      "observed": "Installed and launched Firefox 155 in a fresh context. Shopify unlocked, but Klaviyo never initialized: the script tag existed, no Klaviyo response was observed, and the scratch card never appeared. Repeated attempts could not reach O01/O02/O06/O07. This is a browser/runtime blocker, with cause unresolved.",
+      "evidence": [
+        "firefox-blocked.png"
+      ],
+      "browser": "Firefox 155 attempted"
+    },
+    {
+      "id": "O17",
+      "section": "Onsite",
+      "area": "Reduced motion",
+      "title": "The cover fade respects the OS setting",
+      "steps": "Turn on reduce motion, then reveal.",
+      "expected": "The cover disappears without the fade rather than animating.",
+      "status": "Pass",
+      "observed": "With reducedMotion=reduce, computed cover transition was none. On reveal the first sampled opacity was 0, followed by removal; no intermediate fade was sampled. This used browser emulation of the OS preference.",
+      "evidence": [
+        "O17-focus.png",
+        "O17-revealed.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    },
+    {
+      "id": "O18",
+      "section": "Onsite",
+      "area": "Analytics",
+      "title": "The submit is recorded",
+      "steps": "Complete a reveal that submits, then check the form's analytics or the list.",
+      "expected": "The submission appears, attributed to the form as a normal submit.",
+      "status": "Blocked",
+      "observed": "Subscription and analytics requests failed. Preview List was checked afterwards: it still had one existing member dated before this run, and no synthetic QA submission. Attribution to this form was therefore not verified. The public capture intentionally excludes the existing profile\u2019s details.",
+      "evidence": [
+        "O18-list-header.png"
+      ],
+      "browser": "Chromium 153.0.8010.12"
+    }
+  ]
+}

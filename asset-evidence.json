@@ -1,0 +1,22 @@
+[
+  {
+    "url": "https://static.klaviyo.com/onsite/js/WeAFEE/klaviyo.js?company_id=WeAFEE",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://static.klaviyo.com/onsite/js/signup_forms.ae3afa40dad6b.js?cb=2",
+    "status": 200,
+    "type": "script"
+  },
+  {
+    "url": "https://static-forms.klaviyo.com/forms/api/v7/WeAFEE/full-forms",
+    "status": 200,
+    "type": "xhr"
+  },
+  {
+    "url": "https://static.klaviyo.com/onsite/js/Render.a338af345863a.js?cb=2",
+    "status": 200,
+    "type": "script"
+  }
+]
